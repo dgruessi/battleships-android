@@ -1,0 +1,34 @@
+.grid-coords {
+  display: flex;
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.08em;
+}
+
+.grid-coords-top {
+  flex-direction: row;
+  padding-left: var(--coord-size);
+}
+
+.grid-coords-left {
+  flex-direction: column;
+}
+
+.coord-label {
+  width: var(--cell-size);
+  height: var(--coord-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.grid-coords-left .coord-label {
+  width: var(--coord-size);
+  height: var(--cell-size);
+}
+
+@media (min-width: 768px) {
+  .grid-coords { font-size: 12px; }
+}

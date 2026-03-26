@@ -1,0 +1,80 @@
+:root {
+  /* Core palette */
+  --color-navy: #0a1628;
+  --color-navy-mid: #0d2137;
+  --color-blue-cell: #1a3a5c;
+  --color-blue-deep: #122840;
+  --color-blue-alt: #0d2137;
+
+  /* Gold */
+  --color-gold: #c9a84c;
+  --color-gold-bright: #f0c040;
+
+  /* Combat states */
+  --color-hit: #e63946;
+  --color-hit-glow: #ff6b6b;
+  --color-hit-bg: #3d0a0a;
+  --color-miss: #a8c5da;
+  --color-miss-dim: #4a6b82;
+  --color-miss-bg: #0d1f30;
+  --color-sunk: #ff8c00;
+  --color-sunk-bg: #2a1a00;
+
+  /* Grid */
+  --color-grid-line: #1e4d6b;
+  --color-grid-line-bright: #2a6a8a;
+  --color-cell-hover: #1e4a6e;
+  --color-cell-active: #0e3a5e;
+
+  /* Placement */
+  --color-ship-bg-start: #2d6a40;
+  --color-ship-bg-end: #1a4a28;
+  --color-ship-border: #c9a84c;
+  --color-ghost-valid-bg: rgba(46, 204, 113, 0.35);
+  --color-ghost-valid-border: #2ecc71;
+  --color-ghost-invalid-bg: rgba(230, 57, 70, 0.35);
+  --color-ghost-invalid-border: #e63946;
+
+  /* Labels */
+  --color-enemy-label: #e63946;
+  --color-own-label: #2ecc71;
+
+  /* Text */
+  --color-text-primary: #e8f4f8;
+  --color-text-secondary: #7ba7c0;
+
+  /* Feedback */
+  --color-success: #2ecc71;
+  --color-already-fired: #f0c040;
+
+  /* Shadows */
+  --shadow-enemy-glow: 0 0 12px rgba(230, 57, 70, 0.4);
+  --shadow-own: 0 0 6px rgba(46, 204, 113, 0.2);
+  --shadow-gold: 0 0 16px rgba(201, 168, 76, 0.5);
+
+  /* Grid cell sizes (responsive via container queries / media queries) */
+  --cell-size: 30px;
+  --cell-radius: 3px;
+  --coord-size: 20px;
+
+  /* Timing */
+  --anim-hit: 400ms;
+  --anim-miss: 350ms;
+  --anim-cell-press: 80ms;
+}
+
+@media (min-width: 390px) {
+  :root { --cell-size: 32px; }
+}
+
+@media (min-width: 480px) {
+  :root { --cell-size: 36px; }
+}
+
+@media (min-width: 768px) {
+  :root { --cell-size: 44px; --coord-size: 24px; }
+}
+
+@media (min-width: 1024px) {
+  :root { --cell-size: 52px; --coord-size: 28px; }
+}

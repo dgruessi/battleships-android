@@ -1,0 +1,63 @@
+.difficulty-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.difficulty-title {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--color-text-secondary);
+}
+
+.difficulty-options {
+  display: flex;
+  gap: 6px;
+}
+
+.difficulty-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(26, 58, 92, 0.4);
+  border: 1px solid var(--color-grid-line);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  min-width: 70px;
+}
+
+.difficulty-btn:hover {
+  border-color: var(--color-grid-line-bright);
+  background: rgba(26, 58, 92, 0.7);
+}
+
+@keyframes difficultyGlow {
+  0%, 100% { box-shadow: 0 0 4px rgba(201, 168, 76, 0.25); }
+  50%       { box-shadow: 0 0 14px rgba(201, 168, 76, 0.65), 0 0 4px rgba(240, 192, 64, 0.35); }
+}
+
+.difficulty-btn.active {
+  border-color: var(--color-gold);
+  background: rgba(201, 168, 76, 0.1);
+  animation: difficultyGlow 1.8s ease-in-out infinite;
+}
+
+.difficulty-label {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--color-text-primary);
+}
+
+.difficulty-btn.active .difficulty-label { color: var(--color-gold-bright); }
+
+.difficulty-desc {
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+  white-space: nowrap;
+}

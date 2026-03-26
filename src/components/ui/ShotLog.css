@@ -1,0 +1,51 @@
+.shot-log {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px;
+  background: rgba(10, 22, 40, 0.6);
+  border: 1px solid var(--color-grid-line);
+  border-radius: 4px;
+  min-height: 48px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.shot-record {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.shot-by {
+  font-weight: 700;
+  width: 30px;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+.shot-coord {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 11px;
+  width: 28px;
+  color: var(--color-text-primary);
+}
+
+.shot-result {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.result-hit .shot-result { color: var(--color-hit); }
+.result-miss .shot-result { color: var(--color-miss-dim); }
+.result-sunk .shot-result { color: var(--color-sunk); }
+
+.shot-shipname {
+  font-size: 10px;
+  color: var(--color-sunk);
+  opacity: 0.8;
+}

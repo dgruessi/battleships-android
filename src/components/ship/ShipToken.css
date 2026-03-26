@@ -1,0 +1,72 @@
+.ship-token {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  background: rgba(26, 58, 92, 0.5);
+  border: 1px solid var(--color-grid-line);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+  min-width: 60px;
+}
+
+.ship-token:hover:not(:disabled) {
+  border-color: var(--color-gold);
+  background: rgba(26, 58, 92, 0.8);
+}
+
+.ship-token.selected {
+  border-color: var(--color-gold-bright);
+  background: rgba(201, 168, 76, 0.15);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-gold);
+}
+
+.ship-token.placed {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ship-token-label {
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+
+.ship-token.selected .ship-token-label {
+  color: var(--color-gold-bright);
+}
+
+.ship-token-cells {
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+}
+
+.ship-token-cell {
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(135deg, var(--color-ship-bg-start), var(--color-ship-bg-end));
+  border: 1px solid var(--color-gold);
+}
+
+.ship-token-cell.head { border-radius: 3px 0 0 3px; }
+.ship-token-cell.tail { border-radius: 0 3px 3px 0; }
+.ship-token-cell.body { border-left: none; border-right: none; }
+
+/* Single cell ship (size 1 — if ever needed) */
+.ship-token-cell:only-child { border-radius: 3px; }
+
+.ship-token-size {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.ship-token.selected .ship-token-size { color: var(--color-gold); }

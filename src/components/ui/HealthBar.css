@@ -1,0 +1,44 @@
+.health-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.health-label {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  white-space: nowrap;
+  min-width: 40px;
+}
+
+.health-segments {
+  display: flex;
+  gap: 3px;
+}
+
+.health-segment {
+  width: 16px;
+  height: 10px;
+  background: var(--color-gold);
+  border-radius: 2px;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+.health-segment.sunk {
+  background: rgba(230, 57, 70, 0.3);
+  border: 1px solid rgba(230, 57, 70, 0.4);
+}
+
+.health-count {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 768px) {
+  .health-segment { width: 20px; height: 12px; }
+  .health-label { font-size: 12px; }
+}

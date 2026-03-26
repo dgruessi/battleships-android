@@ -1,0 +1,129 @@
+@keyframes slideUpPanel {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.title-screen {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Mute toggle — top-right corner */
+.title-mute-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: 1px solid var(--color-grid-line);
+  border-radius: 4px;
+  color: var(--color-text-secondary);
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.title-mute-btn:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+.title-mute-btn.muted {
+  opacity: 0.5;
+}
+
+/* Tactical Overlay Panel */
+.title-overlay-panel {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(10, 22, 40, 0.82);
+  border: 1px solid var(--color-gold);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  padding: 20px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: slideUpPanel 400ms ease-out forwards;
+}
+
+.title-overlay-heading {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+  text-align: center;
+  margin: 0;
+}
+
+/* Commander name row */
+.title-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-name-label {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.title-name-input {
+  flex: 1;
+  background: rgba(13, 33, 55, 0.85);
+  border: 1px solid var(--color-grid-line);
+  border-radius: 4px;
+  color: var(--color-gold);
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 7px 12px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.title-name-input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
+}
+
+/* Action buttons stacked */
+.title-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* PLACE SHIPS — full-width, extra prominent */
+.title-place-btn {
+  width: 100%;
+  font-size: 15px !important;
+  letter-spacing: 0.14em !important;
+  padding: 13px 20px !important;
+}
+
+/* On wider screens: floating panel with gap from bottom */
+@media (min-width: 600px) {
+  .title-overlay-panel {
+    border-radius: 12px;
+    border-bottom: 1px solid var(--color-gold);
+    margin-bottom: 32px;
+    max-width: 440px;
+  }
+}

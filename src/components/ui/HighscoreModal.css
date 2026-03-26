@@ -1,0 +1,91 @@
+.hs-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.hs-modal {
+  background: linear-gradient(160deg, #0d2137 0%, #0a1628 100%);
+  border: 2px solid var(--color-gold);
+  border-radius: 8px;
+  padding: 24px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hs-title {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+  text-align: center;
+  margin: 0;
+}
+
+.hs-empty {
+  font-family: 'Exo 2', system-ui, sans-serif;
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-size: 15px;
+}
+
+.hs-table-wrap {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.hs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 13px;
+}
+
+.hs-table th {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--color-grid-line);
+  white-space: nowrap;
+}
+
+.hs-table td {
+  color: var(--color-text-primary);
+  padding: 7px 8px;
+  border-bottom: 1px solid rgba(30, 77, 107, 0.4);
+}
+
+.hs-table tbody tr:hover td {
+  background: rgba(201, 168, 76, 0.06);
+}
+
+.hs-name {
+  font-weight: 600;
+  color: var(--color-gold-bright) !important;
+}
+
+.result-win {
+  color: var(--color-own-label) !important;
+  font-weight: 700;
+}
+
+.result-loss {
+  color: var(--color-enemy-label) !important;
+  font-weight: 700;
+}
+
+.hs-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}

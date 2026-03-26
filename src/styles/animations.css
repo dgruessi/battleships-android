@@ -1,0 +1,80 @@
+/* Hit explosion */
+@keyframes hitExplosion {
+  0% { transform: scale(0.2); opacity: 0; background: #fff; }
+  30% { transform: scale(1.4); opacity: 1; background: #ff6b6b; box-shadow: 0 0 20px #e63946; }
+  60% { transform: scale(1.0); background: #e63946; }
+  100% { transform: scale(1.0); opacity: 1; background: #3d0a0a; }
+}
+
+/* Hit shockwave ring */
+@keyframes shockwave {
+  0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.8); }
+  100% { box-shadow: 0 0 0 24px rgba(230, 57, 70, 0); }
+}
+
+/* Miss ripple */
+@keyframes missRipple {
+  0% { transform: scale(0.3); opacity: 0.9; background: #a8c5da; }
+  50% { transform: scale(1.1); opacity: 0.6; background: #7ba7c0; }
+  100% { transform: scale(1.0); opacity: 1; background: #0d1f30; }
+}
+
+/* Ship sunk cell */
+@keyframes sinkCell {
+  0% { background: #e63946; transform: scale(1.05); }
+  40% { background: #ff8c00; transform: scale(1.08); }
+  70% { background: #ff8c00; transform: scale(0.98); }
+  100% { background: #2a1a00; transform: scale(1.0); }
+}
+
+/* Already-fired feedback */
+@keyframes alreadyFired {
+  0%, 100% { border-color: var(--color-grid-line); }
+  50% { border-color: var(--color-gold-bright); box-shadow: 0 0 8px var(--color-gold); }
+}
+
+/* AI thinking pulse */
+@keyframes targetingPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Enemy grid active pulse */
+@keyframes borderPulse {
+  0%, 100% { border-color: rgba(230, 57, 70, 0.4); }
+  50% { border-color: rgba(230, 57, 70, 0.8); }
+}
+
+/* Victory scale-in */
+@keyframes victoryScale {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.05); }
+  100% { transform: scale(1.0); opacity: 1; }
+}
+
+/* Ship placement confirm flash */
+@keyframes placedFlash {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; background: var(--color-success); }
+  100% { opacity: 1; }
+}
+
+/* Floating sunk label */
+@keyframes sunkLabelIn {
+  0% { opacity: 0; transform: translateY(8px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+/* Stagger utility: used by JS to set --stagger-delay */
+.anim-hit { animation: hitExplosion var(--anim-hit) ease-out forwards; }
+.anim-hit-wave { animation: shockwave 500ms ease-out 100ms forwards; }
+.anim-miss { animation: missRipple var(--anim-miss) ease-out forwards; }
+.anim-sunk { animation: sinkCell 300ms ease-out forwards; }
+.anim-already-fired { animation: alreadyFired 200ms ease-in-out; }
+.anim-targeting { animation: targetingPulse 600ms ease-in-out infinite; }
+.anim-border-pulse { animation: borderPulse 800ms ease-in-out infinite; }
+.anim-victory { animation: victoryScale 500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.anim-placed { animation: placedFlash 300ms ease-in-out; }
+.anim-sunk-label { animation: sunkLabelIn 1700ms ease-in-out forwards; }

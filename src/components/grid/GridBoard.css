@@ -1,0 +1,46 @@
+.grid-board-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.grid-board-label {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-left: var(--coord-size);
+}
+
+.grid-board-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-board-rows {
+  display: flex;
+  flex-direction: row;
+}
+
+.grid-cells {
+  display: grid;
+  grid-template-columns: repeat(10, var(--cell-size));
+  grid-template-rows: repeat(10, var(--cell-size));
+  gap: 1px;
+  border: 2px solid var(--color-grid-line);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Active enemy grid — red glow */
+.grid-board-active .grid-cells {
+  border-color: rgba(230, 57, 70, 0.6);
+  box-shadow: var(--shadow-enemy-glow);
+}
+
+@media (min-width: 768px) {
+  .grid-board-label { font-size: 15px; }
+}

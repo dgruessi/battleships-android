@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Exo+2:wght@400;600;700&display=swap');
+
+.font-russo {
+  font-family: 'Russo One', system-ui, sans-serif;
+  letter-spacing: 0.08em;
+}
+
+.font-exo {
+  font-family: 'Exo 2', system-ui, sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Russo One', system-ui, sans-serif;
+  letter-spacing: 0.08em;
+}

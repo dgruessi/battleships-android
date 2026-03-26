@@ -1,0 +1,62 @@
+.battle-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.battle-grid-section {
+  display: flex;
+  justify-content: center;
+}
+
+.battle-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.battle-health-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 380px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ai-thinking {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  min-height: 20px;
+}
+
+@media (min-width: 900px) {
+  .battle-phase {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .battle-grid-section {
+    flex: none;
+  }
+
+  .battle-center {
+    flex: none;
+    width: 180px;
+    padding-top: 32px; /* align with grid content below label */
+  }
+
+  .battle-health-row {
+    flex-direction: column;
+    max-width: 180px;
+    gap: 8px;
+  }
+}

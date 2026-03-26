@@ -1,0 +1,96 @@
+.grid-cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background: linear-gradient(135deg, var(--color-blue-cell) 0%, var(--color-blue-deep) 100%);
+  border: 1px solid var(--color-grid-line);
+  border-radius: var(--cell-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  transition: background var(--anim-cell-press) ease, transform var(--anim-cell-press) ease;
+  position: relative;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ship cell (placement grid) */
+.grid-cell.state-ship {
+  background: linear-gradient(135deg, var(--color-ship-bg-start) 0%, var(--color-ship-bg-end) 100%);
+  border-color: var(--color-ship-border);
+  border-width: 2px;
+}
+
+/* Hit */
+.grid-cell.state-hit {
+  background: var(--color-hit-bg);
+  border-color: var(--color-hit);
+}
+
+/* Miss */
+.grid-cell.state-miss {
+  background: var(--color-miss-bg);
+  border-color: var(--color-grid-line);
+}
+
+/* Sunk */
+.grid-cell.state-sunk {
+  background: var(--color-sunk-bg);
+  border-color: var(--color-sunk);
+  border-width: 2px;
+}
+
+/* Ghost preview — valid */
+.grid-cell.ghost-valid {
+  background: var(--color-ghost-valid-bg) !important;
+  border: 2px dashed var(--color-ghost-valid-border) !important;
+}
+
+/* Ghost preview — invalid */
+.grid-cell.ghost-invalid {
+  background: var(--color-ghost-invalid-bg) !important;
+  border: 2px dashed var(--color-ghost-invalid-border) !important;
+}
+
+/* Attack mode — interactive cells */
+.grid-cell.mode-attack.state-empty {
+  cursor: crosshair;
+}
+.grid-cell.mode-attack.state-empty:hover {
+  background: var(--color-cell-hover);
+  border-color: var(--color-grid-line-bright);
+}
+.grid-cell.mode-attack.state-empty:active {
+  transform: scale(0.92);
+}
+
+/* Already-fired feedback */
+.grid-cell.already-fired {
+  cursor: not-allowed;
+}
+
+/* Pending placement target */
+.grid-cell.cell-pending {
+  border: 2px solid var(--color-gold-bright) !important;
+  box-shadow: inset 0 0 6px rgba(240, 192, 64, 0.35);
+}
+
+/* Icon */
+.cell-icon {
+  font-size: calc(var(--cell-size) * 0.45);
+  line-height: 1;
+  pointer-events: none;
+  font-weight: 700;
+}
+
+.state-hit .cell-icon { color: var(--color-hit); }
+.state-miss .cell-icon { color: var(--color-miss); font-size: calc(var(--cell-size) * 0.35); }
+.state-sunk .cell-icon { color: var(--color-sunk); }
+
+/* Ensure hit/miss/sunk markers render above ship image overlays (z-index: 1) */
+.grid-cell.state-hit,
+.grid-cell.state-miss,
+.grid-cell.state-sunk {
+  position: relative;
+  z-index: 2;
+}

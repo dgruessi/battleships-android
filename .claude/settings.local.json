@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npm audit:*)",
+      "Bash(npx playwright:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run:*)",
+      "Bash(node:*)",
+      "Bash(find C:/Users/danie/Documents/CodingProjects/Battleships -name *.mp3 -o -name *.wav -o -name *.ogg -o -name *.webm)"
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+.placement-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.placement-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+}
+
+.placement-grid-area {
+  display: flex;
+  justify-content: center;
+}
+
+.placement-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.placement-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.setup-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.setup-name-label {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.setup-name-input {
+  background: rgba(13, 33, 55, 0.8);
+  border: 1px solid var(--color-grid-line);
+  border-radius: 4px;
+  color: var(--color-gold-bright);
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 7px 12px;
+  width: 180px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.setup-name-input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
+}
+
+@media (min-width: 768px) {
+  .placement-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .placement-controls {
+    align-items: flex-start;
+    max-width: 200px;
+  }
+}
