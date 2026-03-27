@@ -9,9 +9,12 @@
   }
 }
 
+/* ─── Full-screen background ──────────────────────────────── */
 .title-screen {
   position: fixed;
   inset: 0;
+  /* dvh = dynamic viewport height: shrinks when mobile browser chrome appears */
+  height: 100dvh;
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -19,14 +22,22 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+  overflow: hidden;
 }
 
-/* Mute toggle — top-right corner */
+/* ─── Mute toggle ─────────────────────────────────────────── */
 .title-mute-btn {
   position: absolute;
-  top: 12px;
-  right: 16px;
-  background: none;
+  /* Respect iOS status bar / notch */
+  top: max(12px, env(safe-area-inset-top, 12px));
+  right: max(16px, env(safe-area-inset-right, 16px));
+  /* 44×44 minimum touch target (Apple HIG / WCAG 2.5.5) */
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 22, 40, 0.6);
   border: 1px solid var(--color-grid-line);
   border-radius: 4px;
   color: var(--color-text-secondary);
@@ -34,9 +45,11 @@
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.05em;
-  padding: 4px 8px;
+  padding: 4px 10px;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  /* Prevent tap highlight flash on iOS */
+  -webkit-tap-highlight-color: transparent;
 }
 .title-mute-btn:hover {
   border-color: var(--color-gold);
@@ -46,31 +59,37 @@
   opacity: 0.5;
 }
 
-/* Tactical Overlay Panel */
+/* ─── Tactical Overlay Panel — mobile-first ───────────────── */
 .title-overlay-panel {
   width: 100%;
-  max-width: 480px;
-  background: rgba(10, 22, 40, 0.82);
+  /* Cap at 72dvh so background artwork stays visible above the panel */
+  max-height: 72dvh;
+  overflow-y: auto;
+  /* Smooth momentum scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  background: rgba(10, 22, 40, 0.88);
   border: 1px solid var(--color-gold);
   border-bottom: none;
   border-radius: 12px 12px 0 0;
-  padding: 20px 24px 32px;
+  /* Extra bottom padding for iOS home indicator */
+  padding: 16px 20px calc(20px + env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   animation: slideUpPanel 400ms ease-out forwards;
+  box-sizing: border-box;
 }
 
 .title-overlay-heading {
   font-family: 'Russo One', system-ui, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 0.1em;
   color: var(--color-gold);
   text-align: center;
   margin: 0;
 }
 
-/* Commander name row */
+/* ─── Commander name row ──────────────────────────────────── */
 .title-name-row {
   display: flex;
   align-items: center;
@@ -79,7 +98,7 @@
 
 .title-name-label {
   font-family: 'Russo One', system-ui, sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   color: var(--color-text-secondary);
   white-space: nowrap;
@@ -87,43 +106,64 @@
 
 .title-name-input {
   flex: 1;
+  /* Minimum 44px height for touch usability */
+  min-height: 44px;
   background: rgba(13, 33, 55, 0.85);
   border: 1px solid var(--color-grid-line);
   border-radius: 4px;
   color: var(--color-gold);
   font-family: 'Exo 2', system-ui, sans-serif;
-  font-size: 15px;
+  font-size: 16px; /* 16px prevents iOS auto-zoom on focus */
   font-weight: 600;
-  padding: 7px 12px;
+  padding: 0 12px;
   outline: none;
   transition: border-color 0.15s;
+  box-sizing: border-box;
 }
 .title-name-input:focus {
   border-color: var(--color-gold);
   box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
 }
 
-/* Action buttons stacked */
+/* ─── Action buttons ──────────────────────────────────────── */
 .title-actions {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 /* PLACE SHIPS — full-width, extra prominent */
 .title-place-btn {
   width: 100%;
-  font-size: 15px !important;
+  font-size: 14px !important;
   letter-spacing: 0.14em !important;
-  padding: 13px 20px !important;
+  padding: 14px 20px !important;
 }
 
-/* On wider screens: floating panel with gap from bottom */
+/* ─── Desktop / tablet — floating panel ──────────────────── */
 @media (min-width: 600px) {
   .title-overlay-panel {
+    max-width: 440px;
+    max-height: none;
     border-radius: 12px;
     border-bottom: 1px solid var(--color-gold);
     margin-bottom: 32px;
-    max-width: 440px;
+    padding: 20px 24px 28px;
+    gap: 16px;
+  }
+
+  .title-overlay-heading {
+    font-size: 18px;
+  }
+
+  .title-name-input {
+    font-size: 15px;
+    min-height: unset;
+    padding: 7px 12px;
+  }
+
+  .title-place-btn {
+    font-size: 15px !important;
+    padding: 13px 20px !important;
   }
 }
