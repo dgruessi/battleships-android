@@ -10,7 +10,8 @@
       "Bash(npm run:*)",
       "Bash(node:*)",
       "Bash(find C:/Users/danie/Documents/CodingProjects/Battleships -name *.mp3 -o -name *.wav -o -name *.ogg -o -name *.webm)",
-      "Bash(node -e \"require\\(''sharp''\\)\")"
+      "Bash(node -e \"require\\(''sharp''\\)\")",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|js\\)$\")"
     ]
   }
 }
