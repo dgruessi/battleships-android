@@ -38,7 +38,8 @@ export default function GridBoard({
 }: GridBoardProps) {
   const [animCells, setAnimCells] = useState<Map<number, string>>(new Map())
   const alreadyFiredRef = useRef<number | null>(null)
-  const cellSize = useCellSize()
+  const gridCellsRef = useRef<HTMLDivElement>(null)
+  const cellSize = useCellSize(gridCellsRef)
 
   const handleClick = useCallback(
     (coord: Coordinate) => {
@@ -94,6 +95,7 @@ export default function GridBoard({
         <div className="grid-board-rows">
           <GridCoordinates position="left" />
           <div
+            ref={gridCellsRef}
             className="grid-cells"
             onMouseLeave={() => onCellHover?.(null)}
           >

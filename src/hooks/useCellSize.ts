@@ -1,25 +1,38 @@
-import { useState, useEffect } from 'react'
+import { useState, useLayoutEffect, type RefObject } from 'react'
 
-function readCellSize(): number {
-  if (typeof window === 'undefined') return 30
-  const raw = getComputedStyle(document.documentElement)
-    .getPropertyValue('--cell-size')
-    .trim()
+function readCellSizeFrom(el: Element | null): number {
+  if (!el || typeof window === 'undefined') return 30
+  const raw = getComputedStyle(el).getPropertyValue('--cell-size').trim()
   return parseInt(raw, 10) || 30
 }
 
 /**
- * Returns the current grid cell size in pixels, re-computing on window resize
- * to match the responsive `--cell-size` CSS custom property.
+ * Returns the grid cell size in pixels for the given container, matching the
+ * effective `--cell-size` after inheritance (e.g. `.battle-phase` / `.placement-phase`
+ * overrides). Must be the same subtree as `.grid-cells` so sprites align with the grid.
  */
-export function useCellSize(): number {
-  const [cellSize, setCellSize] = useState(readCellSize)
+export function useCellSize(gridCellsRef: RefObject<HTMLElement | null>): number {
+  const [cellSize, setCellSize] = useState(30)
 
-  useEffect(() => {
-    const handler = () => setCellSize(readCellSize())
-    window.addEventListener('resize', handler)
-    return () => window.removeEventListener('resize', handler)
-  }, [])
+  useLayoutEffect(() => {
+    const el = gridCellsRef.current
+    if (!el) return
+
+    const update = () => setCellSize(readCellSizeFrom(el))
+
+    update()
+    window.addEventListener('resize', update)
+    let ro: ResizeObserver | undefined
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(update)
+      ro.observe(el)
+    }
+
+    return () => {
+      window.removeEventListener('resize', update)
+      ro?.disconnect()
+    }
+  }, [gridCellsRef])
 
   return cellSize
 }
