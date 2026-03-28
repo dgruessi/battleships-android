@@ -5,8 +5,8 @@ test.describe('Placement Phase', () => {
     await page.goto('/')
   })
 
-  test('loads the app with BATTLESHIPS title', async ({ page }) => {
-    await expect(page.locator('.app-title')).toContainText('BATTLESHIPS')
+  test('loads the title screen', async ({ page }) => {
+    await expect(page.getByTestId('phase-setup')).toBeVisible()
   })
 
   test('shows difficulty picker on setup screen', async ({ page }) => {

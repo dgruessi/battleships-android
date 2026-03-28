@@ -68,6 +68,23 @@
   max-width: 100%;
 }
 
+/* Compact header + tighter main padding on small phones */
+@media (max-width: 479px) {
+  .app-header {
+    padding: 8px 12px;
+  }
+  .app-title {
+    font-size: 17px;
+  }
+  .app-phase-label {
+    display: none; /* save horizontal space */
+  }
+  .app-main {
+    padding: 8px;
+    gap: 8px;
+  }
+}
+
 @media (min-width: 768px) {
   .app-header { padding: 16px 24px; }
   .app-title { font-size: 28px; }

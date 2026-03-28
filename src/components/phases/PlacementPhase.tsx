@@ -6,25 +6,15 @@ import { Coordinate } from '@/models/types'
 import { toIndex } from '@/utils/coordinates'
 import { isValidPlacement, getShipCells, allShipsPlaced } from '@/logic/shipPlacement'
 import { soundManager } from '@/audio/soundManager'
+
 import GridBoard from '@/components/grid/GridBoard'
 import ShipDock from '@/components/ship/ShipDock'
-import DifficultyPicker from '@/components/ui/DifficultyPicker'
 import Button from '@/components/ui/Button'
-import HighscoreModal from '@/components/ui/HighscoreModal'
 import './PlacementPhase.css'
 
-interface PlacementPhaseProps {
-  setupMode?: boolean
-}
-
-export default function PlacementPhase({ setupMode }: PlacementPhaseProps) {
+export default function PlacementPhase() {
   const {
     playerBoard,
-    difficulty,
-    playerName,
-    setDifficulty,
-    setPlayerName,
-    startPlacement,
     placeShipOnBoard,
     autoPlaceAll,
     clearPlacements,
@@ -36,7 +26,6 @@ export default function PlacementPhase({ setupMode }: PlacementPhaseProps) {
   const [ghostCells, setGhostCells] = useState<Set<number>>(new Set())
   const [ghostValid, setGhostValid] = useState(false)
   const [pendingCoord, setPendingCoord] = useState<Coordinate | null>(null)
-  const [showHighscores, setShowHighscores] = useState(false)
 
   const allPlaced = allShipsPlaced(playerBoard)
   const selectedDef = SHIP_DEFINITIONS.find((d) => d.id === selectedShipId) ?? null
@@ -112,48 +101,8 @@ export default function PlacementPhase({ setupMode }: PlacementPhaseProps) {
     [pendingCoord, orientation, playerBoard.grid, doPlace]
   )
 
-  if (setupMode) {
-    return (
-      <div className="placement-phase" data-testid="phase-setup">
-        <div className="setup-name-row">
-          <label className="setup-name-label" htmlFor="commander-name">
-            Commander
-          </label>
-          <input
-            id="commander-name"
-            className="setup-name-input"
-            type="text"
-            maxLength={20}
-            value={playerName}
-            onChange={(e) => setPlayerName(e.target.value)}
-          />
-        </div>
-
-        <DifficultyPicker value={difficulty} onChange={setDifficulty} />
-
-        <Button
-          variant="primary"
-          onClick={() => {
-            soundManager.playEffect('click')
-            startPlacement()
-          }}
-        >
-          Place Ships
-        </Button>
-
-        <Button variant="secondary" onClick={() => setShowHighscores(true)}>
-          Highscores
-        </Button>
-
-        {showHighscores && <HighscoreModal onClose={() => setShowHighscores(false)} />}
-      </div>
-    )
-  }
-
   return (
     <div className="placement-phase" data-testid="phase-placement">
-      <DifficultyPicker value={difficulty} onChange={setDifficulty} />
-
       <div className="placement-layout">
         <div className="placement-grid-area">
           <GridBoard

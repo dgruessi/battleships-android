@@ -33,37 +33,27 @@
   justify-content: center;
 }
 
-.setup-name-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+@media (max-width: 479px) {
+  .placement-phase {
+    --cell-size: 24px;
+    --coord-size: 14px;
+    gap: 8px;
+  }
+  .placement-layout  { gap: 8px; }
+  .placement-controls { gap: 8px; }
+  .placement-actions { gap: 6px; }
 }
 
-.setup-name-label {
-  font-family: 'Russo One', system-ui, sans-serif;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  color: var(--color-text-secondary);
-  white-space: nowrap;
-}
-
-.setup-name-input {
-  background: rgba(13, 33, 55, 0.8);
-  border: 1px solid var(--color-grid-line);
-  border-radius: 4px;
-  color: var(--color-gold-bright);
-  font-family: 'Exo 2', system-ui, sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 7px 12px;
-  width: 180px;
-  outline: none;
-  transition: border-color 0.15s ease;
-}
-
-.setup-name-input:focus {
-  border-color: var(--color-gold);
-  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
+/* ≤389px AND ≤580px (iPhone SE 1st gen ≈ 320×568): shrink grid further to keep Start Battle on screen */
+@media (max-width: 389px) and (max-height: 580px) {
+  .placement-phase {
+    --cell-size: 18px;
+    --coord-size: 10px;
+    gap: 4px;
+  }
+  .placement-layout   { gap: 4px; }
+  .placement-controls { gap: 4px; }
+  .placement-actions  { gap: 4px; }
 }
 
 @media (min-width: 768px) {

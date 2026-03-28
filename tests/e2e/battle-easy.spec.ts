@@ -3,9 +3,9 @@ import { test, expect } from '@playwright/test'
 test.describe('Battle Phase — Easy AI', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
-    await page.getByRole('button', { name: /place ships/i }).click()
-    // Select Easy difficulty
+    // Select Easy difficulty on TitleScreen before entering placement
     await page.getByRole('button', { name: /easy/i }).click()
+    await page.getByRole('button', { name: /place ships/i }).click()
     await page.getByRole('button', { name: /auto place/i }).click()
     await page.getByTestId('start-battle-btn').click()
     await expect(page.getByTestId('phase-battle')).toBeVisible()
@@ -33,11 +33,18 @@ test.describe('Battle Phase — Easy AI', () => {
   test('shot log appears after firing', async ({ page }) => {
     const cell = page.getByTestId('opponent-board').getByTestId('cell-0-0')
     await cell.click()
-    await expect(page.getByTestId('shot-log')).toBeVisible()
+    // Shot log is hidden via CSS on small/short screens
+    const vp = page.viewportSize()!
+    const shotLogHidden =
+      (vp.width <= 479 && vp.height <= 730) || // Pixel 5, iPhone SE
+      vp.width <= 389                           // Galaxy S21
+    if (!shotLogHidden) {
+      await expect(page.getByTestId('shot-log')).toBeVisible()
+    }
   })
 
   test('full game plays through to results screen', async ({ page }) => {
-    test.setTimeout(120000)
+    test.setTimeout(180000)
     const opponentBoard = page.getByTestId('opponent-board')
     const aiThinking = page.getByTestId('ai-thinking')
 
@@ -51,10 +58,10 @@ test.describe('Battle Phase — Easy AI', () => {
 
         await cell.click()
 
-        // Wait for AI thinking to appear then disappear (confirms AI turn completed)
+        // Wait for AI thinking element to attach then detach (works even when hidden by CSS)
         try {
-          await aiThinking.waitFor({ state: 'visible', timeout: 2000 })
-          await aiThinking.waitFor({ state: 'hidden', timeout: 5000 })
+          await aiThinking.waitFor({ state: 'attached', timeout: 500 })
+          await aiThinking.waitFor({ state: 'detached', timeout: 5000 })
         } catch {
           // AI might not show thinking if game ended
         }

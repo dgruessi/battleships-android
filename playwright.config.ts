@@ -12,6 +12,7 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   projects: [
+    // Desktop
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
@@ -20,9 +21,27 @@ export default defineConfig({
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
+    // Mobile phones
     {
-      name: 'mobile-chrome',
-      use: { ...devices['Pixel 5'] },
+      name: 'pixel-5',
+      use: { ...devices['Pixel 5'] },          // 393×851
+    },
+    {
+      name: 'iphone-se',
+      use: { ...devices['iPhone SE'] },         // 375×667 — smallest target
+    },
+    {
+      name: 'iphone-14',
+      use: { ...devices['iPhone 14'] },         // 390×844
+    },
+    {
+      name: 'galaxy-s21',
+      use: { ...devices['Galaxy S21'] },        // 360×800
+    },
+    // Tablet
+    {
+      name: 'ipad',
+      use: { ...devices['iPad'] },              // 768×1024
     },
   ],
   webServer: {

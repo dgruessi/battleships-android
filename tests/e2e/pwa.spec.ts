@@ -10,10 +10,11 @@ test.describe('PWA requirements', () => {
   })
 
   test('manifest.webmanifest is reachable and has correct fields', async ({ page }) => {
-    const response = await page.goto('/manifest.webmanifest')
-    expect(response?.status()).toBe(200)
-    const json = await response?.json()
-    expect(json.name).toBe('Battleships')
+    // Use request API to avoid Firefox treating .webmanifest as a download
+    const response = await page.request.get('/manifest.webmanifest')
+    expect(response.status()).toBe(200)
+    const json = await response.json()
+    expect(json.name).toBe('Navy Fury')
     expect(json.display).toBe('standalone')
     expect(json.theme_color).toBe('#0a1628')
     expect(json.icons).toBeDefined()
