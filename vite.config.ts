@@ -32,7 +32,7 @@ export default defineConfig({
         theme_color: '#0a1628',
         background_color: '#0a1628',
         display: 'standalone',
-        orientation: 'any',
+        orientation: 'landscape',
         scope: '/',
         start_url: '/',
         icons: [

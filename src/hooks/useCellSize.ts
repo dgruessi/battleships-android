@@ -20,8 +20,20 @@ export function useCellSize(gridCellsRef: RefObject<HTMLElement | null>): number
 
     const update = () => setCellSize(readCellSizeFrom(el))
 
+    /** iOS often applies new media queries one frame after orientationchange */
+    const updateAfterOrientation = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(update)
+      })
+    }
+
     update()
     window.addEventListener('resize', update)
+    window.addEventListener('orientationchange', updateAfterOrientation)
+
+    const vv = window.visualViewport
+    vv?.addEventListener('resize', update)
+
     let ro: ResizeObserver | undefined
     if (typeof ResizeObserver !== 'undefined') {
       ro = new ResizeObserver(update)
@@ -30,6 +42,8 @@ export function useCellSize(gridCellsRef: RefObject<HTMLElement | null>): number
 
     return () => {
       window.removeEventListener('resize', update)
+      window.removeEventListener('orientationchange', updateAfterOrientation)
+      vv?.removeEventListener('resize', update)
       ro?.disconnect()
     }
   }, [gridCellsRef])

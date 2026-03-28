@@ -19,11 +19,34 @@
   justify-content: center;
 }
 
+.placement-side-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
 .placement-controls {
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: center;
+}
+
+.placement-difficulty {
+  width: 100%;
+  max-width: 340px;
+}
+
+.placement-phase .difficulty-options {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.placement-phase .difficulty-btn {
+  flex: 1 1 88px;
+  min-width: 72px;
 }
 
 .placement-actions {
@@ -33,6 +56,41 @@
   justify-content: center;
 }
 
+/* Primary CTA: pinned on phones/tablets so it stays reachable with difficulty + dock */
+@media (max-width: 1023px) {
+  .placement-phase {
+    padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .placement-start-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 25;
+    display: flex;
+    justify-content: center;
+    padding: 8px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(10, 22, 40, 0.96);
+    border-top: 1px solid var(--color-grid-line);
+    box-sizing: border-box;
+  }
+
+  .placement-start-wrap [data-testid='start-battle-btn'] {
+    width: 100%;
+    max-width: 360px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .placement-start-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
+  }
+}
+
 @media (max-width: 479px) {
   .placement-phase {
     --cell-size: 24px;
@@ -40,6 +98,7 @@
     gap: 8px;
   }
   .placement-layout  { gap: 8px; }
+  .placement-side-column { gap: 8px; }
   .placement-controls { gap: 8px; }
   .placement-actions { gap: 6px; }
 }
@@ -52,6 +111,7 @@
     gap: 4px;
   }
   .placement-layout   { gap: 4px; }
+  .placement-side-column { gap: 4px; }
   .placement-controls { gap: 4px; }
   .placement-actions  { gap: 4px; }
 }
@@ -61,6 +121,11 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
+  }
+  .placement-side-column {
+    align-items: flex-start;
+    width: auto;
+    max-width: 220px;
   }
   .placement-controls {
     align-items: flex-start;

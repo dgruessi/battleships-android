@@ -9,20 +9,26 @@
   }
 }
 
-/* ─── Full-screen background ──────────────────────────────── */
+/* ─── Shell: hero art + panel (no crop — ship stays fully in hero) ───────── */
 .title-screen {
   position: fixed;
   inset: 0;
-  /* dvh = dynamic viewport height: shrinks when mobile browser chrome appears */
   height: 100dvh;
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
+  align-items: stretch;
   overflow: hidden;
+  background-color: var(--color-navy);
+}
+
+/* Artwork: letterboxed so the full ship image is always visible */
+.title-hero {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 /* ─── Mute toggle ─────────────────────────────────────────── */
@@ -59,19 +65,17 @@
   opacity: 0.5;
 }
 
-/* ─── Tactical Overlay Panel — mobile-first ───────────────── */
+/* ─── Tactical overlay panel — sits below hero (portrait) ───────────────── */
 .title-overlay-panel {
+  flex-shrink: 0;
   width: 100%;
-  /* Cap at 72dvh so background artwork stays visible above the panel */
-  max-height: 72dvh;
+  max-height: 48dvh;
   overflow-y: auto;
-  /* Smooth momentum scrolling on iOS */
   -webkit-overflow-scrolling: touch;
-  background: rgba(10, 22, 40, 0.88);
+  background: rgba(10, 22, 40, 0.92);
   border: 1px solid var(--color-gold);
   border-bottom: none;
   border-radius: 12px 12px 0 0;
-  /* Extra bottom padding for iOS home indicator */
   padding: 16px 20px calc(20px + env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
@@ -140,14 +144,27 @@
   padding: 14px 20px !important;
 }
 
-/* ─── Desktop / tablet — floating panel ──────────────────── */
+/* ─── Tablet / desktop — landscape-friendly row layout ─────────────────── */
 @media (min-width: 600px) {
+  .title-screen {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .title-hero {
+    flex: 1 1 55%;
+    min-width: 0;
+  }
+
   .title-overlay-panel {
+    flex: 0 0 auto;
+    width: min(420px, 42vw);
     max-width: 440px;
     max-height: none;
+    align-self: center;
+    margin: max(12px, env(safe-area-inset-top, 12px)) 16px max(12px, env(safe-area-inset-bottom, 12px)) 0;
     border-radius: 12px;
     border-bottom: 1px solid var(--color-gold);
-    margin-bottom: 32px;
     padding: 20px 24px 28px;
     gap: 16px;
   }
@@ -165,5 +182,30 @@
   .title-place-btn {
     font-size: 15px !important;
     padding: 13px 20px !important;
+  }
+}
+
+/* Prefer horizontal title layout on short viewports once wide enough (e.g. phone landscape) */
+@media (orientation: landscape) and (min-height: 280px) and (max-height: 500px) {
+  .title-screen {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .title-hero {
+    flex: 1 1 60%;
+    min-width: 0;
+  }
+
+  .title-overlay-panel {
+    flex: 0 0 auto;
+    width: min(380px, 45vw);
+    max-height: min(100dvh - 24px, 100%);
+    align-self: center;
+    margin: 8px 12px 8px 0;
+    border-radius: 10px;
+    border-bottom: 1px solid var(--color-gold);
+    padding: 12px 16px 16px;
+    gap: 10px;
   }
 }

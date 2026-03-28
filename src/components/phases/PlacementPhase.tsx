@@ -9,12 +9,15 @@ import { soundManager } from '@/audio/soundManager'
 
 import GridBoard from '@/components/grid/GridBoard'
 import ShipDock from '@/components/ship/ShipDock'
+import DifficultyPicker from '@/components/ui/DifficultyPicker'
 import Button from '@/components/ui/Button'
 import './PlacementPhase.css'
 
 export default function PlacementPhase() {
   const {
     playerBoard,
+    difficulty,
+    setDifficulty,
     placeShipOnBoard,
     autoPlaceAll,
     clearPlacements,
@@ -119,61 +122,69 @@ export default function PlacementPhase() {
           />
         </div>
 
-        <div className="placement-controls">
-          <ShipDock
-            placedShips={playerBoard.ships}
-            selectedShipId={selectedShipId}
-            orientation={orientation}
-            onSelectShip={handleShipSelect}
-          />
+        <div className="placement-side-column">
+          <div className="placement-controls">
+            <div className="placement-difficulty">
+              <DifficultyPicker value={difficulty} onChange={setDifficulty} />
+            </div>
 
-          <div className="placement-actions">
-            <Button
-              variant="secondary"
-              onClick={() => {
-                soundManager.playEffect('click')
-                setOrientation((o) =>
-                  o === Orientation.HORIZONTAL ? Orientation.VERTICAL : Orientation.HORIZONTAL
-                )
-              }}
-            >
-              Rotate ({orientation === Orientation.HORIZONTAL ? 'H' : 'V'})
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                soundManager.playEffect('click')
-                autoPlaceAll()
-                setPendingCoord(null)
-                setSelectedShipId(null)
-              }}
-            >
-              Auto Place
-            </Button>
-            <Button
-              variant="danger"
-              onClick={() => {
-                soundManager.playEffect('click')
-                clearPlacements()
-                setPendingCoord(null)
-                setSelectedShipId(null)
-              }}
-            >
-              Clear
-            </Button>
+            <ShipDock
+              placedShips={playerBoard.ships}
+              selectedShipId={selectedShipId}
+              orientation={orientation}
+              onSelectShip={handleShipSelect}
+            />
+
+            <div className="placement-actions">
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  soundManager.playEffect('click')
+                  setOrientation((o) =>
+                    o === Orientation.HORIZONTAL ? Orientation.VERTICAL : Orientation.HORIZONTAL
+                  )
+                }}
+              >
+                Rotate ({orientation === Orientation.HORIZONTAL ? 'H' : 'V'})
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  soundManager.playEffect('click')
+                  autoPlaceAll()
+                  setPendingCoord(null)
+                  setSelectedShipId(null)
+                }}
+              >
+                Auto Place
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  soundManager.playEffect('click')
+                  clearPlacements()
+                  setPendingCoord(null)
+                  setSelectedShipId(null)
+                }}
+              >
+                Clear
+              </Button>
+            </div>
           </div>
 
-          <Button
-            variant="primary"
-            disabled={!allPlaced}
-            onClick={() => {
-              soundManager.playEffect('click')
-              startBattle()
-            }}
-            data-testid="start-battle-btn"
-          >
-            Start Battle
-          </Button>
+          <div className="placement-start-wrap">
+            <Button
+              variant="primary"
+              disabled={!allPlaced}
+              onClick={() => {
+                soundManager.playEffect('click')
+                startBattle()
+              }}
+              data-testid="start-battle-btn"
+            >
+              Start Battle
+            </Button>
+          </div>
         </div>
       </div>
     </div>

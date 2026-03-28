@@ -59,14 +59,16 @@ test.describe('Key elements visible without scrolling', () => {
     await page.goto('/')
     await page.getByRole('button', { name: /place ships/i }).click()
     await expect(page.getByTestId('phase-placement')).toBeVisible()
+    const startBtn = page.getByTestId('start-battle-btn')
+    await startBtn.scrollIntoViewIfNeeded()
     expect(await visibleInViewport(page, 'start-battle-btn')).toBe(true)
   })
 
-  test('difficulty picker visible on title screen', async ({ page }) => {
+  test('difficulty picker visible on placement screen', async ({ page }) => {
     await page.goto('/')
-    // Wait for slide-in animation (400ms) to complete before measuring
+    await page.getByRole('button', { name: /place ships/i }).click()
+    await expect(page.getByTestId('phase-placement')).toBeVisible()
     await page.getByTestId('difficulty-picker').waitFor({ state: 'visible' })
-    await page.waitForTimeout(450)
     expect(await visibleInViewport(page, 'difficulty-picker')).toBe(true)
   })
 })

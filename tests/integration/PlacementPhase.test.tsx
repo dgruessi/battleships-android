@@ -16,6 +16,11 @@ describe('PlacementPhase', () => {
     expect(screen.getByTestId('ship-dock')).toBeInTheDocument()
   })
 
+  it('renders difficulty picker', () => {
+    render(<PlacementPhase />)
+    expect(screen.getByTestId('difficulty-picker')).toBeInTheDocument()
+  })
+
   it('"Start Battle" button is disabled when no ships placed', () => {
     render(<PlacementPhase />)
     const btn = screen.getByTestId('start-battle-btn')

@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { useGameStore } from '@/store/gameStore'
 import { soundManager } from '@/audio/soundManager'
-import DifficultyPicker from '@/components/ui/DifficultyPicker'
 import HighscoreModal from '@/components/ui/HighscoreModal'
 import Button from '@/components/ui/Button'
 import titleScreenImg from '@/assets/images/title_screen.png.png'
 import './TitleScreen.css'
 
 export default function TitleScreen() {
-  const { playerName, difficulty, setDifficulty, setPlayerName, startPlacement } = useGameStore()
+  const { playerName, setPlayerName, startPlacement } = useGameStore()
   const [showHighscores, setShowHighscores] = useState(false)
   const [muted, setMuted] = useState(soundManager.isMuted())
 
@@ -19,11 +18,7 @@ export default function TitleScreen() {
   }
 
   return (
-    <div
-      className="title-screen"
-      style={{ backgroundImage: `url(${titleScreenImg})` }}
-      data-testid="phase-setup"
-    >
+    <div className="title-screen" data-testid="phase-setup">
       <button
         className={`title-mute-btn${muted ? ' muted' : ''}`}
         onClick={toggleMute}
@@ -31,6 +26,12 @@ export default function TitleScreen() {
       >
         {muted ? '[ SND OFF ]' : '[ SND ON ]'}
       </button>
+
+      <div
+        className="title-hero"
+        style={{ backgroundImage: `url(${titleScreenImg})` }}
+        aria-hidden
+      />
 
       <div className="title-overlay-panel">
         <h4 className="title-overlay-heading">Place Your Fleet</h4>
@@ -46,8 +47,6 @@ export default function TitleScreen() {
             onChange={(e) => setPlayerName(e.target.value)}
           />
         </div>
-
-        <DifficultyPicker value={difficulty} onChange={setDifficulty} />
 
         <div className="title-actions">
           <Button

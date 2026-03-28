@@ -3,9 +3,8 @@ import { test, expect } from '@playwright/test'
 test.describe('Battle Phase — Easy AI', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
-    // Select Easy difficulty on TitleScreen before entering placement
-    await page.getByRole('button', { name: /easy/i }).click()
     await page.getByRole('button', { name: /place ships/i }).click()
+    await page.getByRole('button', { name: /easy/i }).click()
     await page.getByRole('button', { name: /auto place/i }).click()
     await page.getByTestId('start-battle-btn').click()
     await expect(page.getByTestId('phase-battle')).toBeVisible()

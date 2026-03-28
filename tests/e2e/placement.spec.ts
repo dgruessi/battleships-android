@@ -9,7 +9,9 @@ test.describe('Placement Phase', () => {
     await expect(page.getByTestId('phase-setup')).toBeVisible()
   })
 
-  test('shows difficulty picker on setup screen', async ({ page }) => {
+  test('shows difficulty picker on placement screen', async ({ page }) => {
+    await page.getByRole('button', { name: /place ships/i }).click()
+    await expect(page.getByTestId('phase-placement')).toBeVisible()
     await expect(page.getByTestId('difficulty-picker')).toBeVisible()
   })
 
