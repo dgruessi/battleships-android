@@ -5,13 +5,13 @@ import { getFunctions, connectFunctionsEmulator, type Functions } from 'firebase
 import { Capacitor } from '@capacitor/core';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDIOl_BO5Pq4tvyLbsNDW_ZczEB3gHUG5M',
-  authDomain: 'navyfury-6cf7a.firebaseapp.com',
-  projectId: 'navyfury-6cf7a',
-  storageBucket: 'navyfury-6cf7a.firebasestorage.app',
-  messagingSenderId: '722242705142',
-  appId: '1:722242705142:web:00b155106175fe978f3ed7',
-  measurementId: 'G-4HW2GKWNYC',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY as string,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN as string,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID as string,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET as string,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID as string,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID as string,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID as string,
 };
 
 export let isFirebaseAvailable = false;
