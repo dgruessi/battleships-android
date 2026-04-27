@@ -32,6 +32,8 @@ export interface GameStore extends GameState {
   setDifficulty: (difficulty: DifficultyLevel) => void
   setPlayerName: (name: string) => void
   startPlacement: () => void
+  startLobby: () => void
+  returnToSetup: () => void
 
   // Placement
   placeShipOnBoard: (definition: ShipDefinition, coord: Coordinate, orientation: Orientation) => void
@@ -43,6 +45,10 @@ export interface GameStore extends GameState {
   // Battle
   playerFire: (coord: Coordinate) => void
   triggerAITurn: () => void
+
+  // Multiplayer
+  startMultiPlacement: () => void
+  returnToLobby: () => void
 
   // Meta
   resetGame: () => void
@@ -75,6 +81,10 @@ export const useGameStore = create<GameStore>((set, get) => ({
   setPlayerName: (name) => {
     set({ playerName: name.trim() || 'Admiral' })
   },
+
+  startLobby: () => set({ phase: GamePhase.LOBBY }),
+
+  returnToSetup: () => set({ phase: GamePhase.SETUP }),
 
   startPlacement: () => {
     set({
@@ -207,6 +217,19 @@ export const useGameStore = create<GameStore>((set, get) => ({
       currentTurn: 'PLAYER',
     })
   },
+
+  startMultiPlacement: () => {
+    set({
+      phase: GamePhase.MULTI_PLACEMENT,
+      playerBoard: createEmptyBoard(),
+      opponentBoard: createEmptyBoard(),
+      shotLog: [],
+      winner: null,
+      stats: createInitialStats(),
+    })
+  },
+
+  returnToLobby: () => set({ phase: GamePhase.LOBBY }),
 
   resetGame: () => {
     const { difficulty } = get()

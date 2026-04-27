@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    function isAuthed() {
+      return request.auth != null;
+    }
+
+    function isRoomMember(roomId) {
+      let room = get(/databases/$(database)/documents/rooms/$(roomId));
+      return request.auth.uid == room.data.hostUid
+          || request.auth.uid == room.data.guestUid;
+    }
+
+    // ── Rooms ─────────────────────────────────────────────────────────────────
+    match /rooms/{roomId} {
+      // WAITING rooms are publicly visible (browse list).
+      // Room members can read at any status (PLACING, BATTLE, RESULTS).
+      allow read: if isAuthed()
+        && (resource.data.status == 'WAITING'
+            || request.auth.uid == resource.data.hostUid
+            || request.auth.uid == resource.data.guestUid);
+
+      // Host may delete their own room only while still WAITING (no guest yet).
+      // All other writes (create, update) are done by Cloud Functions via Admin SDK.
+      allow delete: if isAuthed()
+        && request.auth.uid == resource.data.hostUid
+        && resource.data.status == 'WAITING';
+
+      // ── Players ────────────────────────────────────────────────────────────
+      match /players/{uid} {
+        allow read: if isAuthed() && isRoomMember(roomId);
+        // Writes handled by Cloud Functions only.
+      }
+
+      // ── Masked boards (revealed shots only) ────────────────────────────────
+      match /maskedBoards/{uid} {
+        allow read: if isAuthed() && isRoomMember(roomId);
+        // Writes handled by Cloud Functions only.
+      }
+
+      // ── Private placements (anti-cheat — server-only) ──────────────────────
+      match /privatePlacements/{uid} {
+        allow read: if isAuthed() && request.auth.uid == uid;
+        // Writes handled by Cloud Functions only.
+      }
+
+      // ── Events (append-only audit log) ─────────────────────────────────────
+      match /events/{eventId} {
+        allow read: if isAuthed() && isRoomMember(roomId);
+        // Writes handled by Cloud Functions only.
+      }
+    }
+  }
+}

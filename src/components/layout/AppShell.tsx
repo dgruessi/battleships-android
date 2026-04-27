@@ -10,9 +10,13 @@ interface AppShellProps {
 
 const PHASE_LABELS: Record<GamePhase, string> = {
   [GamePhase.SETUP]: 'Place Your Fleet',
+  [GamePhase.LOBBY]: 'Multiplayer',
   [GamePhase.PLACEMENT]: 'Place Your Fleet',
   [GamePhase.BATTLE]: 'Battle!',
   [GamePhase.RESULTS]: 'Battle Over',
+  [GamePhase.MULTI_PLACEMENT]: 'Multiplayer',
+  [GamePhase.MULTI_BATTLE]: 'Battle!',
+  [GamePhase.MULTI_RESULTS]: 'Battle Over',
 }
 
 export default function AppShell({ children }: AppShellProps) {

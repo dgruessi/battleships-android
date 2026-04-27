@@ -47,6 +47,16 @@ class SoundManager {
     } catch {
       this.muted = false
     }
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', () => {
+        if (!this.musicEl) return
+        if (document.hidden) {
+          this.musicEl.pause()
+        } else if (!this.muted) {
+          this.musicEl.play().catch(() => {})
+        }
+      })
+    }
   }
 
   isMuted(): boolean {
@@ -63,6 +73,17 @@ class SoundManager {
     if (this.muted) return
     const variants = EFFECT_VARIANTS[effect]
     const src = variants[Math.floor(Math.random() * variants.length)]!
+    this._playSrc(src)
+  }
+
+  playEffectVariant(effect: SoundEffect, index: number): void {
+    if (this.muted) return
+    const variants = EFFECT_VARIANTS[effect]
+    const src = variants[index % variants.length]!
+    this._playSrc(src)
+  }
+
+  private _playSrc(src: string): void {
     const audio = new Audio(src)
     audio.volume = 0.65
     try {

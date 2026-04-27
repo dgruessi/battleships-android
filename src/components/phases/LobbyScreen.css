@@ -1,0 +1,225 @@
+.lobby-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-navy);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.lobby-panel {
+  width: 100%;
+  max-width: 360px;
+  background: rgba(10, 22, 40, 0.92);
+  border: 1px solid var(--color-gold);
+  border-radius: 12px;
+  padding: 28px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slideUpPanel 300ms ease-out forwards;
+  box-sizing: border-box;
+}
+
+.lobby-heading {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  color: var(--color-gold);
+  text-align: center;
+  margin: 0 0 4px;
+}
+
+.lobby-btn {
+  width: 100%;
+  font-size: 14px !important;
+  letter-spacing: 0.1em !important;
+  padding: 13px 20px !important;
+}
+
+.lobby-label {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.lobby-code {
+  font-family: 'Exo 2', monospace, system-ui;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--color-gold);
+  text-align: center;
+  margin: 4px 0;
+}
+
+.lobby-hint {
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
+.lobby-connected {
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 13px;
+  color: #4caf8a;
+  text-align: center;
+  margin: 0;
+}
+
+.lobby-error {
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 13px;
+  color: #e05555;
+  text-align: center;
+  margin: 0;
+}
+
+.lobby-offline {
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin: 0 0 8px;
+}
+
+.lobby-panel--wide {
+  max-width: 480px;
+}
+
+.room-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.room-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(13, 33, 55, 0.7);
+  border: 1px solid var(--color-grid-line);
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.room-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.room-item-name {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--color-gold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.room-item-meta {
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.room-item-join {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--color-gold);
+  border-radius: 4px;
+  color: var(--color-gold);
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.room-item-join:hover:not(:disabled) {
+  background: var(--color-gold);
+  color: var(--color-navy);
+}
+
+.room-item-join:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.lobby-input {
+  width: 100%;
+  min-height: 48px;
+  background: rgba(13, 33, 55, 0.85);
+  border: 1px solid var(--color-grid-line);
+  border-radius: 4px;
+  color: var(--color-gold);
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-align: center;
+  padding: 0 12px;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+  text-transform: uppercase;
+}
+.lobby-input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
+}
+.lobby-input::placeholder {
+  color: rgba(201, 168, 76, 0.35);
+  letter-spacing: 0.1em;
+}
+
+.room-type-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  background: rgba(13, 33, 55, 0.7);
+  border: 1px solid var(--color-grid-line);
+  border-radius: 8px;
+  padding: 14px 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.room-type-option:hover {
+  border-color: var(--color-gold);
+  background: rgba(201, 168, 76, 0.08);
+}
+
+.room-type-title {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--color-gold);
+}
+
+.room-type-desc {
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+}

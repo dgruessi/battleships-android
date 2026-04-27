@@ -7,7 +7,7 @@ import titleScreenImg from '@/assets/images/title_screen.png.png'
 import './TitleScreen.css'
 
 export default function TitleScreen() {
-  const { playerName, setPlayerName, startPlacement } = useGameStore()
+  const { playerName, setPlayerName, startPlacement, startLobby } = useGameStore()
   const [showHighscores, setShowHighscores] = useState(false)
   const [muted, setMuted] = useState(soundManager.isMuted())
 
@@ -57,7 +57,17 @@ export default function TitleScreen() {
               startPlacement()
             }}
           >
-            Place Ships
+            Singleplayer
+          </Button>
+          <Button
+            variant="secondary"
+            className="title-place-btn"
+            onClick={() => {
+              soundManager.playEffect('click')
+              startLobby()
+            }}
+          >
+            Multiplayer
           </Button>
           <Button variant="secondary" onClick={() => setShowHighscores(true)}>
             Highscores

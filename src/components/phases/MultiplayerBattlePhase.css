@@ -1,0 +1,43 @@
+.multi-turn-indicator {
+  font-family: 'Russo One', system-ui, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-align: center;
+  min-height: 20px;
+  transition: color 0.3s;
+}
+
+.multi-turn-indicator.my-turn {
+  color: var(--color-gold);
+  animation: pulse-opacity 1.2s ease-in-out infinite;
+}
+
+.multi-turn-indicator.opponent-turn {
+  color: #e05555;
+  animation: pulse-opacity 1.8s ease-in-out infinite;
+}
+
+.multi-battle-error {
+  font-family: 'Exo 2', system-ui, sans-serif;
+  font-size: 12px;
+  color: #e05555;
+  text-align: center;
+  margin: 0;
+}
+
+.multi-battle-leave {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+@keyframes pulse-opacity {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Hide leave button and error on very small screens to save space */
+@media (max-width: 479px) and (max-height: 730px) {
+  .multi-battle-leave { display: none; }
+  .multi-battle-error { display: none; }
+}

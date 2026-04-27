@@ -15,9 +15,18 @@
     "test:e2e:headed": "playwright test --headed",
     "type-check": "tsc --noEmit",
     "audit:ci": "npm audit --audit-level=high",
-    "generate-icons": "node scripts/generate-icons.mjs"
+    "generate-icons": "node scripts/generate-icons.mjs",
+    "android-sync": "npm run build && npx cap sync android",
+    "test:logic":    "vitest run --config vitest.multiplayer.config.ts tests/functions",
+    "test:emulator": "vitest run --config vitest.multiplayer.config.ts tests/multiplayer",
+    "test:all":      "npm test && npm run test:logic && npm run test:emulator",
+    "test:mp":       "node scripts/test-multiplayer.mjs"
   },
   "dependencies": {
+    "@capacitor/android": "8.3.1",
+    "@capacitor/cli": "8.3.1",
+    "@capacitor/core": "8.3.1",
+    "firebase": "12.12.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "workbox-window": "^7.0.0",

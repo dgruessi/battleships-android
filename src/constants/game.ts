@@ -1,8 +1,12 @@
 export enum GamePhase {
   SETUP = 'SETUP',
+  LOBBY = 'LOBBY',
   PLACEMENT = 'PLACEMENT',
   BATTLE = 'BATTLE',
   RESULTS = 'RESULTS',
+  MULTI_PLACEMENT = 'MULTI_PLACEMENT',
+  MULTI_BATTLE = 'MULTI_BATTLE',
+  MULTI_RESULTS = 'MULTI_RESULTS',
 }
 
 export enum DifficultyLevel {
