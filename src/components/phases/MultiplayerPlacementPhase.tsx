@@ -60,23 +60,26 @@ export default function MultiplayerPlacementPhase() {
   // Watch room for BATTLE status (or rematch reset) after submission
   useEffect(() => {
     if (!submitted || !roomId) return
-    let initial = true
+    // Track the last-seen status so we can detect a genuine PLACING transition
+    // (rematch) vs. Firestore re-delivering PLACING on reconnect (spurious).
+    let lastStatus: string | null = null
     unsubRef.current = onSnapshot(doc(db!, 'rooms', roomId), (snap) => {
       if (!snap.exists()) return
-      const status = snap.data().status
+      const status = snap.data().status as string
       if (status === 'BATTLE') {
         unsubRef.current?.()
         opponentSubRef.current?.()
         useGameStore.setState({ phase: GamePhase.MULTI_BATTLE })
-      } else if (status === 'PLACING' && !initial) {
-        // Rematch: room cycled back to PLACING after a completed game
+      } else if (status === 'PLACING' && lastStatus !== null && lastStatus !== 'PLACING') {
+        // Rematch: status genuinely transitioned from another state back to PLACING.
+        // If lastStatus is already PLACING, this is a reconnect re-delivery — ignore it.
         unsubRef.current?.()
         opponentSubRef.current?.()
         setSubmitted(false)
         setOpponentReady(false)
         startMultiPlacement()
       }
-      initial = false
+      lastStatus = status
     })
     return () => unsubRef.current?.()
   }, [submitted, roomId]) // eslint-disable-line react-hooks/exhaustive-deps

@@ -153,7 +153,12 @@ describe('MultiplayerPlacementPhase', () => {
     await waitFor(() => expect(mockOnSnapshot).toHaveBeenCalledTimes(2))
     expect(roomCb).not.toBeNull()
 
-    // Fire a second PLACING snapshot (not the initial one) — simulates startRematch on server
+    // Simulate the real rematch sequence: server transitions RESULTS → PLACING.
+    // A duplicate PLACING snapshot (e.g. Firestore reconnect re-delivery) must NOT reset
+    // the UI — only a genuine status transition triggers a rematch reset.
+    await act(async () => {
+      roomCb!({ exists: () => true, data: () => ({ status: 'RESULTS' }) })
+    })
     await act(async () => {
       roomCb!({ exists: () => true, data: () => ({ status: 'PLACING' }) })
     })
@@ -163,5 +168,30 @@ describe('MultiplayerPlacementPhase', () => {
       expect(screen.queryByText(/Deine Flotte wurde übermittelt/i)).not.toBeInTheDocument()
       expect(screen.getByTestId('ship-dock')).toBeInTheDocument()
     })
+  })
+
+  test('duplicate PLACING snapshot (Firestore reconnect) does NOT reset the waiting screen', async () => {
+    let roomCb: ((snap: object) => void) | null = null
+    mockOnSnapshot.mockImplementation((_docRef: unknown, cb: (snap: object) => void) => {
+      if (roomCb === null) roomCb = cb
+      cb({ exists: () => true, data: () => ({ status: 'PLACING' }) })
+      return () => {}
+    })
+
+    await renderPhase()
+    await act(async () => { useGameStore.getState().autoPlaceAll() })
+    await userEvent.click(await screen.findByRole('button', { name: /Flotte bestätigen/i }))
+    await waitFor(() => screen.getByText(/Deine Flotte wurde übermittelt/i))
+    await waitFor(() => expect(mockOnSnapshot).toHaveBeenCalledTimes(2))
+
+    // Fire another PLACING snapshot — simulates a Firestore reconnect re-delivering the
+    // current status. This must NOT reset the waiting screen.
+    await act(async () => {
+      roomCb!({ exists: () => true, data: () => ({ status: 'PLACING' }) })
+    })
+
+    // Waiting screen must still be visible
+    expect(screen.getByText(/Deine Flotte wurde übermittelt/i)).toBeInTheDocument()
+    expect(screen.queryByTestId('ship-dock')).not.toBeInTheDocument()
   })
 })
